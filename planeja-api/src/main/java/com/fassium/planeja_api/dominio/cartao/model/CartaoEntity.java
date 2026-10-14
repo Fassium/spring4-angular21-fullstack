@@ -3,6 +3,7 @@ package com.fassium.planeja_api.dominio.cartao.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.AccessLevel;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -16,6 +17,7 @@ public class CartaoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column
+    @Setter(AccessLevel.NONE)
     private UUID id;
 
     @Column(name = "nome", nullable = false, length = 30)
@@ -25,12 +27,13 @@ public class CartaoEntity {
     @Enumerated(EnumType.STRING)
     private BandeiraCartao bandeira;
 
-    @Column(name = "data_cadastro")
+    @Column(name = "data_cadastro", nullable = false, updatable = false)
+    @Setter(AccessLevel.NONE)
     private LocalDateTime dataCadastro;
 
     @PrePersist
-    public void prePersist(){
-        setDataCadastro(LocalDateTime.now());
+    void prePersist() {
+        this.dataCadastro = LocalDateTime.now();
     }
 
 }
