@@ -13,7 +13,7 @@ public class CartaoService {
     @Autowired
     private CartaoValidator cartaoValidator;
     @Autowired
-    private CartaoRepository cartaoRepository;-
+    private CartaoRepository cartaoRepository;
     @Autowired
     private CartaoMapper cartaoMapper;
 
