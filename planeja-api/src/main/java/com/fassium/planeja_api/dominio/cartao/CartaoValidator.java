@@ -16,7 +16,7 @@ public class CartaoValidator {
         var result = ValidationResult.novo();
 
         if (cartaoRepository.findByNome(form.nome()).isPresent()) {
-            result.add(new CampoInvalido("nome: "+form.nome(), "Já cadastrado."));
+            result.add(new CampoInvalido("nome", "Já cadastrado."));
         }
 
         return result;
