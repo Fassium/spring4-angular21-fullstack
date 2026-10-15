@@ -1,5 +1,6 @@
 package com.fassium.planeja_api.dominio.cartao;
 
+import com.fassium.planeja_api.common.exceptions.ValidationException;
 import com.fassium.planeja_api.dominio.cartao.dto.CartaoDetalhes;
 import com.fassium.planeja_api.dominio.cartao.dto.CartaoForm;
 import com.fassium.planeja_api.dominio.cartao.mapper.CartaoMapper;
@@ -18,7 +19,12 @@ public class CartaoService {
     private CartaoMapper cartaoMapper;
 
     public CartaoDetalhes criar(CartaoForm form){
-        cartaoValidator.validar(form);
+        var result = cartaoValidator.validar(form);
+
+        if (result.isInvalido()){
+            throw new ValidationException(result.getCamposInvalidos());
+        }
+
         CartaoEntity entity = cartaoMapper.toEntity(form);
         entity = cartaoRepository.save(entity);
         return cartaoMapper.toDetalhes(entity);
