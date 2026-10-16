@@ -1,5 +1,6 @@
 package com.fassium.planeja_api.infra.handlers;
 
+import com.fassium.planeja_api.common.exceptions.RegistroNaoEncontradoException;
 import com.fassium.planeja_api.common.exceptions.ValidationException;
 import com.fassium.planeja_api.common.validation.CampoInvalido;
 import org.springframework.http.HttpStatus;
@@ -45,5 +46,17 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(status).body(body);
     }
+
+    @ExceptionHandler(RegistroNaoEncontradoException.class)
+    public ResponseEntity<?> handleRegistroNaoEncontradoException(RegistroNaoEncontradoException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+                "timestamp", LocalDateTime.now(),
+                "status", HttpStatus.NOT_FOUND.value(),
+                "erro", e.getMessage(),
+                "camposInvalidos", e.getMessage())
+        );
+
+    }
+
 
 }
