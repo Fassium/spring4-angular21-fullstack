@@ -6,6 +6,8 @@ import com.fassium.planeja_api.dominio.cartao.dto.CartaoForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class CartaoValidator {
 

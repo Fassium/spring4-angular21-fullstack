@@ -30,5 +30,15 @@ public class CartaoController {
         return ResponseEntity.ok(result);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<CartaoDetalhes> atualizarPorId(
+            @PathVariable("id") UUID id,
+            @RequestBody CartaoForm dadosAtualizacao) {
+        cartaoService.atualizar(id, dadosAtualizacao);
+        return ResponseEntity.noContent().build();
+
+
+    }
+
 
 }
