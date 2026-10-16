@@ -30,6 +30,7 @@ public class CartaoController {
         return ResponseEntity.ok(result);
     }
 
+    // dominio/cartoes/id
     @PutMapping("{id}")
     public ResponseEntity<CartaoDetalhes> atualizarPorId(
             @PathVariable("id") UUID id,

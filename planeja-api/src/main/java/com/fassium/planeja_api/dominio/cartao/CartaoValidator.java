@@ -14,10 +14,11 @@ public class CartaoValidator {
     @Autowired
     private CartaoRepository cartaoRepository;
 
-    public ValidationResult validar(CartaoForm form) {
+    public ValidationResult validar(CartaoForm form, UUID id) {
         var result = ValidationResult.novo();
 
-        if (cartaoRepository.findByNome(form.nome()).isPresent()) {
+        var isListaNaoVazia = !cartaoRepository.findByNomeAndNotId(form.nome(), id).isEmpty();
+        if (isListaNaoVazia) {
             result.add(new CampoInvalido("nome", "Já cadastrado."));
         }
 

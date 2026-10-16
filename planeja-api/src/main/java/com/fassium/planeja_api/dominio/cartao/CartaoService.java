@@ -27,7 +27,7 @@ public class CartaoService {
     private Validator validator;
 
     public CartaoDetalhes criar(CartaoForm form) {
-        var result = cartaoValidator.validar(form);
+        var result = cartaoValidator.validar(form, null);
 
         if (result.isInvalido()) {
             throw new ValidationException(result.getCamposInvalidos());
@@ -48,7 +48,7 @@ public class CartaoService {
     public void atualizar(UUID id, CartaoForm dadosAtualizacao) {
         var entity = cartaoRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
 
-        var result = cartaoValidator.validar(dadosAtualizacao);
+        var result = cartaoValidator.validar(dadosAtualizacao, id);
 
         if (result.isInvalido()) {
             throw new ValidationException(result.getCamposInvalidos());
